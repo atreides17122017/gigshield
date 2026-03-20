@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useStore } from '../store';
-import { Calculator as CalcIcon, DollarSign, CloudRain, AlertCircle, ArrowRight, Zap } from 'lucide-react';
+import { Calculator as CalcIcon, DollarSign, CloudRain, AlertCircle, ArrowRight, Zap, ShieldCheck } from 'lucide-react';
 
 export default function Calculator() {
   const { user, activePlanId, monitor, addClaim } = useStore();
@@ -8,19 +8,28 @@ export default function Calculator() {
   const [hourlyIncome, setHourlyIncome] = useState(user.dailyIncome ? Math.round(user.dailyIncome / user.workingHours) : 60);
   const [lostHours, setLostHours] = useState(3);
   const [disruptionType, setDisruptionType] = useState('Rainfall');
-  const [triggerCount, setTriggerCount] = useState(0);
+  const [claimPhase, setClaimPhase] = useState<'idle' | 'detecting' | 'creating' | 'trust' | 'risk' | 'approved' | 'paid'>('idle');
 
   // Magic formula: payout = income × hours × factor
   const factor = 1.0; 
   const calculatedPayout = Math.round(hourlyIncome * lostHours * factor);
 
   const handleTriggerClaim = () => {
-    addClaim({
-      type: disruptionType,
-      lostHours: lostHours,
-      amount: calculatedPayout
-    });
-    setTriggerCount(prev => prev + 1);
+    if (!monitor.hasAlert) return;
+    setClaimPhase('detecting');
+    
+    setTimeout(() => setClaimPhase('creating'), 800);
+    setTimeout(() => setClaimPhase('trust'), 1600);
+    setTimeout(() => setClaimPhase('risk'), 2400);
+    setTimeout(() => {
+      setClaimPhase('approved');
+      addClaim({
+        type: disruptionType,
+        lostHours: lostHours,
+        amount: calculatedPayout
+      });
+    }, 3200);
+    setTimeout(() => setClaimPhase('paid'), 4000);
   };
 
   return (
@@ -116,20 +125,31 @@ export default function Calculator() {
           </div>
 
           {activePlanId ? (
-            <button 
-              onClick={handleTriggerClaim}
-              className={`w-full mt-6 py-3.5 px-4 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all active:scale-95 shadow-lg shadow-primary-500/20 ${
-                triggerCount > 0 && monitor.hasAlert
-                  ? 'bg-green-500 hover:bg-green-600 text-white'
-                  : 'bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white'
-              }`}
-            >
-              {triggerCount > 0 ? (
-                <>Claim Triggered <Zap className="w-4 h-4 fill-current" /></>
-              ) : (
-                <>Trigger Auto-Claim <ArrowRight className="w-4 h-4" /></>
-              )}
-            </button>
+            monitor.hasAlert ? (
+              <button 
+                onClick={handleTriggerClaim}
+                disabled={claimPhase !== 'idle'}
+                className={`w-full mt-6 py-3.5 px-4 rounded-xl text-sm font-bold flex justify-center items-center gap-2 transition-all active:scale-95 shadow-lg shadow-primary-500/20 ${
+                  claimPhase === 'paid'
+                    ? 'bg-green-500 hover:bg-green-600 text-white'
+                    : claimPhase !== 'idle'
+                    ? 'bg-primary-400 cursor-wait text-white'
+                    : 'bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-700 hover:to-accent-700 text-white'
+                }`}
+              >
+                {claimPhase === 'paid' ? (
+                  <>Payout Sent <Zap className="w-4 h-4 fill-current" /></>
+                ) : claimPhase !== 'idle' ? (
+                  <>Processing...</>
+                ) : (
+                  <>Trigger Auto-Claim <ArrowRight className="w-4 h-4" /></>
+                )}
+              </button>
+            ) : (
+              <div className="mt-6 text-center text-xs text-red-500 bg-red-50 p-3 rounded-xl border border-red-200 font-medium">
+                No disruption detected. Claim not allowed.
+              </div>
+            )
           ) : (
             <div className="mt-6 text-center text-xs text-amber-500 bg-amber-500/10 p-2.5 rounded-xl border border-amber-500/20">
               Active plan required to claim
@@ -142,10 +162,11 @@ export default function Calculator() {
            <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-4">Claim Lifecycle</h4>
            <div className="space-y-4">
              {[
-               { icon: CloudRain, text: 'Disruption detected', active: monitor.hasAlert },
-               { icon: Zap, text: 'Auto trigger claim', active: triggerCount > 0 },
-               { icon: CalcIcon, text: 'Payout calculated', active: triggerCount > 0 },
-               { icon: DollarSign, text: 'Payment sent (10 mins)', active: false }
+               { icon: CloudRain, text: 'Disruption detected', active: monitor.hasAlert || claimPhase !== 'idle' },
+               { icon: Zap, text: 'Claim created', active: ['creating', 'trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
+               { icon: ShieldCheck, text: 'Trust score check', active: ['trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
+               { icon: CalcIcon, text: 'Risk check', active: ['risk', 'approved', 'paid'].includes(claimPhase) },
+               { icon: DollarSign, text: 'Claim approved', active: ['approved', 'paid'].includes(claimPhase) }
              ].map((step, i) => (
                <div key={i} className={`flex items-center gap-3 ${step.active ? 'opacity-100' : 'opacity-40 grayscale'} transition-all`}>
                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step.active ? 'bg-primary-100 text-primary-600' : 'bg-slate-100 text-slate-500'}`}>

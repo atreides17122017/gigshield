@@ -8,7 +8,6 @@ import {
   ShieldAlert,
   Wallet,
   Clock,
-  MapPin,
   CheckCircle2,
   ChevronRight
 } from 'lucide-react';
@@ -76,15 +75,16 @@ export default function Dashboard() {
 
       {/* Main Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Profile Card */}
-        <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <MapPin className="w-16 h-16 text-primary-500" />
+        {/* Trust Score Card */}
+        <div className="bg-indigo-900 rounded-2xl p-5 border border-indigo-800 shadow-sm relative overflow-hidden group text-white">
+          <div className="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/30 rounded-full blur-2xl"></div>
+          <p className="text-sm font-medium text-indigo-200 mb-1">AI Trust Score</p>
+          <div className="flex items-end gap-2 text-white">
+            <span className="text-3xl font-extrabold">{user.trustScore || 72}</span>
+            <span className="text-indigo-300 font-medium mb-1">/ 100</span>
           </div>
-          <p className="text-sm font-medium text-slate-500 mb-1">Delivery Zone</p>
-          <p className="text-xl font-bold text-slate-900">{user.zone || 'Not set'}</p>
-          <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
-             <span className="inline-flex items-center justify-center px-2 py-1 bg-slate-100 rounded-md font-medium text-slate-700">{user.platform || 'Platform'}</span>
+          <div className="mt-3 text-xs text-indigo-100 leading-tight">
+             Higher trust score = lower premium and faster claims
           </div>
         </div>
 

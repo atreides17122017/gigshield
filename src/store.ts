@@ -3,10 +3,13 @@ import { create } from 'zustand'
 export interface User {
   name: string;
   email: string;
+  phone?: string;
   platform: 'Zomato' | 'Swiggy' | '';
   zone: string;
   dailyIncome: number;
   workingHours: number;
+  upiId?: string;
+  trustScore?: number;
   isLoggedIn: boolean;
 }
 
@@ -42,6 +45,7 @@ interface AppState {
   notifications: Array<{ id: string; message: string; type: string }>;
   
   login: (email: string, name?: string) => void;
+  register: (data: Partial<User>) => void;
   logout: () => void;
   updateProfile: (data: Partial<User>) => void;
   subscribe: (planId: string) => void;
@@ -52,10 +56,13 @@ export const useStore = create<AppState>((set) => ({
   user: {
     name: '',
     email: '',
+    phone: '',
     platform: '',
     zone: '',
     dailyIncome: 0,
     workingHours: 0,
+    upiId: '',
+    trustScore: 0,
     isLoggedIn: false,
   },
   activePlanId: null,
@@ -82,13 +89,27 @@ export const useStore = create<AppState>((set) => ({
       email, 
       name: name || email.split('@')[0],
       platform: 'Zomato', 
-      zone: 'South Delhi', 
+      zone: 'Velachery', 
       dailyIncome: 500, 
       workingHours: 8,
+      trustScore: 72,
       isLoggedIn: true 
     }
   })),
-  logout: () => set({ user: { name: '', email: '', platform: '', zone: '', dailyIncome: 0, workingHours: 0, isLoggedIn: false } }),
+  register: (data) => set((state) => ({
+    user: {
+      ...state.user,
+      ...data,
+      name: data.name || '',
+      email: data.email || '',
+      platform: data.platform as any || 'Zomato',
+      zone: data.zone || 'Velachery',
+      trustScore: data.trustScore || Math.floor(Math.random() * 41) + 50,
+      dailyIncome: data.dailyIncome || 500,
+      isLoggedIn: true
+    }
+  })),
+  logout: () => set({ user: { name: '', email: '', phone: '', platform: '', zone: '', dailyIncome: 0, workingHours: 0, upiId: '', trustScore: 0, isLoggedIn: false } }),
   updateProfile: (data) => set((state) => ({ user: { ...state.user, ...data } })),
   subscribe: (planId) => set({ activePlanId: planId }),
   addClaim: (claim) => set((state) => ({

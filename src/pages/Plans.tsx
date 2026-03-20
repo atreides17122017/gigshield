@@ -33,7 +33,28 @@ const plans = [
 ];
 
 export default function Plans() {
-  const { activePlanId, subscribe } = useStore();
+  const { activePlanId, subscribe, user } = useStore();
+
+  const getZoneRisk = (zone: string) => {
+    if (['Adyar', 'Velachery'].includes(zone)) return 10;
+    if (['T Nagar', 'Tambaram'].includes(zone)) return 5;
+    return 0; // Anna Nagar and default
+  };
+
+  const getTrustDiscount = (score: number) => {
+    if (score > 80) return 15;
+    if (score > 70) return 10;
+    if (score > 60) return 5;
+    return 0;
+  };
+
+  const zoneRisk = getZoneRisk(user.zone || 'Anna Nagar');
+  const trustDiscount = getTrustDiscount(user.trustScore || 72);
+  const seasonalRisk = 2; // Simulated random between 0 and 5
+
+  const getFinalPremium = (basePrice: number) => {
+    return basePrice + zoneRisk - trustDiscount + seasonalRisk;
+  };
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 pb-20 lg:pb-0 animate-fade-in">
@@ -43,6 +64,19 @@ export default function Plans() {
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100 text-sm font-medium">
           <Zap className="w-4 h-4 fill-current text-indigo-500" />
           <span>AI-adjusted premium based on your risk profile, Trust Score, zone risk, and season.</span>
+        </div>
+      </div>
+
+      <div className="max-w-2xl mx-auto mt-6 bg-slate-900 rounded-2xl p-5 text-white shadow-xl">
+        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Premium Breakdown</h3>
+        <div className="space-y-2 text-sm">
+           <div className="flex justify-between"><span className="text-slate-300">Base Premium</span><span>Plan dependent</span></div>
+           <div className="flex justify-between"><span className="text-slate-300">Zone Risk ({user.zone || 'Anna Nagar'})</span><span className="text-red-400">+₹{zoneRisk}</span></div>
+           <div className="flex justify-between"><span className="text-slate-300">Trust Score Discount ({user.trustScore || 72}/100)</span><span className="text-green-400">-₹{trustDiscount}</span></div>
+           <div className="flex justify-between"><span className="text-slate-300">Seasonal Risk (Monsoon)</span><span className="text-red-400">+₹{seasonalRisk}</span></div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-slate-700">
+           <p className="text-xs text-slate-400">Premium is calculated using Trust Score, zone risk and seasonal risk. Updates dynamically.</p>
         </div>
       </div>
 
@@ -79,7 +113,7 @@ export default function Plans() {
                 }`} />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.name}</h3>
                 <div className="flex items-end justify-center gap-1">
-                  <span className="text-4xl font-extrabold text-slate-900">₹{plan.price}</span>
+                  <span className="text-4xl font-extrabold text-slate-900">₹{getFinalPremium(plan.price)}</span>
                   <span className="text-slate-500 text-sm mb-1">/ week</span>
                 </div>
               </div>

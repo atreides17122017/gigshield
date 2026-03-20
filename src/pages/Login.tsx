@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store';
 import { Shield, ArrowRight } from 'lucide-react';
 
@@ -94,11 +94,17 @@ export default function Login() {
                 <div className="w-full border-t border-slate-200" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-slate-500">Demo Account</span>
+                <span className="px-2 bg-white text-slate-500">New to GigShield?</span>
               </div>
             </div>
-            <div className="mt-4 text-center text-xs text-slate-400">
-              Any email will work for this demo prototype.
+            
+            <div className="mt-6 text-center">
+              <Link
+                to="/register"
+                className="w-full flex justify-center py-2.5 px-4 rounded-xl text-sm font-medium text-primary-600 border-2 border-primary-50 hover:bg-primary-50 transition-colors"
+              >
+                Create an account
+              </Link>
             </div>
           </div>
         </div>

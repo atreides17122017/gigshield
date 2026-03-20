@@ -71,14 +71,18 @@ export default function Profile() {
               <select name="platform" value={formData.platform} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-primary-500 outline-none transition-all text-slate-700">
                 <option value="Zomato">Zomato</option>
                 <option value="Swiggy">Swiggy</option>
-                <option value="Blinkit">Blinkit</option>
-                <option value="Zepto">Zepto</option>
               </select>
             </div>
             
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1.5 flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> Primary Delivery Zone</label>
-              <input type="text" name="zone" value={formData.zone} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 outline-none transition-all placeholder:text-slate-400 text-slate-700" />
+              <select name="zone" value={formData.zone} onChange={handleChange} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:border-primary-500 outline-none transition-all text-slate-700">
+                <option value="Adyar">Adyar (High Risk)</option>
+                <option value="T Nagar">T Nagar (Medium Risk)</option>
+                <option value="Velachery">Velachery (High Risk)</option>
+                <option value="Anna Nagar">Anna Nagar (Low Risk)</option>
+                <option value="Tambaram">Tambaram (Medium Risk)</option>
+              </select>
             </div>
           </div>
 
