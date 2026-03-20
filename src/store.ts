@@ -1,0 +1,105 @@
+import { create } from 'zustand'
+
+export interface User {
+  name: string;
+  email: string;
+  platform: 'Zomato' | 'Swiggy' | '';
+  zone: string;
+  dailyIncome: number;
+  workingHours: number;
+  isLoggedIn: boolean;
+}
+
+export interface Plan {
+  id: string;
+  name: string;
+  price: number;
+  dailyCoverage: number;
+  weeklyCap: number;
+}
+
+export interface Claim {
+  id: string;
+  date: string;
+  type: string;
+  lostHours: number;
+  amount: number;
+  status: 'Approved' | 'Pending' | 'Rejected';
+}
+
+interface AppState {
+  user: User;
+  activePlanId: string | null;
+  monitor: {
+    rainfall: number;
+    temperature: number;
+    aqi: number;
+    curfew: boolean;
+    platformOutage: boolean;
+    hasAlert: boolean;
+  };
+  claims: Claim[];
+  notifications: Array<{ id: string; message: string; type: string }>;
+  
+  login: (email: string, name?: string) => void;
+  logout: () => void;
+  updateProfile: (data: Partial<User>) => void;
+  subscribe: (planId: string) => void;
+  addClaim: (claim: Omit<Claim, 'id' | 'date' | 'status'>) => void;
+}
+
+export const useStore = create<AppState>((set) => ({
+  user: {
+    name: '',
+    email: '',
+    platform: '',
+    zone: '',
+    dailyIncome: 0,
+    workingHours: 0,
+    isLoggedIn: false,
+  },
+  activePlanId: null,
+  monitor: {
+    rainfall: 65, // mm
+    temperature: 32, // C
+    aqi: 320,
+    curfew: false,
+    platformOutage: true,
+    hasAlert: true, // Example alert
+  },
+  claims: [
+    { id: 'CLM-001', date: '2026-03-15', type: 'Rain', lostHours: 4, amount: 1600, status: 'Approved' },
+    { id: 'CLM-002', date: '2026-02-28', type: 'Traffic', lostHours: 2, amount: 800, status: 'Approved' },
+  ],
+  notifications: [
+    { id: '1', message: 'Heavy Rain Detected — coverage active', type: 'alert' },
+    { id: '2', message: 'Claim CLM-001 Approved', type: 'success' },
+  ],
+
+  login: (email, name) => set((state) => ({
+    user: { 
+      ...state.user, 
+      email, 
+      name: name || email.split('@')[0],
+      platform: 'Zomato', 
+      zone: 'South Delhi', 
+      dailyIncome: 500, 
+      workingHours: 8,
+      isLoggedIn: true 
+    }
+  })),
+  logout: () => set({ user: { name: '', email: '', platform: '', zone: '', dailyIncome: 0, workingHours: 0, isLoggedIn: false } }),
+  updateProfile: (data) => set((state) => ({ user: { ...state.user, ...data } })),
+  subscribe: (planId) => set({ activePlanId: planId }),
+  addClaim: (claim) => set((state) => ({
+    claims: [
+      {
+        ...claim,
+        id: `CLM-00${state.claims.length + 1}`,
+        date: new Date().toISOString().split('T')[0],
+        status: 'Pending',
+      },
+      ...state.claims
+    ]
+  }))
+}))
