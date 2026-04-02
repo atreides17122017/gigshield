@@ -6,7 +6,6 @@ import { Shield, ArrowRight } from 'lucide-react';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-<<<<<<< HEAD
   const [error, setError] = useState('');
   const setAuth = useStore(state => state.setAuth);
   const navigate = useNavigate();
@@ -30,16 +29,6 @@ export default function Login() {
       }
     } catch (err) {
       setError('Network connection failed. Proceeding cleanly.');
-=======
-  const login = useStore(state => state.login);
-  const navigate = useNavigate();
-
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      login(email);
-      navigate('/dashboard');
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
     }
   };
 
@@ -65,10 +54,7 @@ export default function Login() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="bg-white py-8 px-4 shadow-xl shadow-slate-200/50 sm:rounded-2xl sm:px-10 border border-slate-100">
-<<<<<<< HEAD
           {error && <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center font-medium border border-red-100">{error}</div>}
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-slate-700">

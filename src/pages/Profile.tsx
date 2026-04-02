@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
-=======
-import { useState } from 'react';
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
 import { useStore } from '../store';
 import { Save, User as UserIcon, MapPin, Briefcase, IndianRupee, Clock } from 'lucide-react';
 
 export default function Profile() {
-<<<<<<< HEAD
   const { user, token, updateProfile } = useStore();
   
   const [formData, setFormData] = useState({
@@ -17,22 +12,10 @@ export default function Profile() {
     zone: user?.zone || 'Delhi',
     dailyIncome: user?.dailyIncome || 500,
     workingHours: user?.workingHours || 8,
-=======
-  const { user, updateProfile } = useStore();
-  
-  const [formData, setFormData] = useState({
-    name: user.name,
-    email: user.email,
-    platform: user.platform,
-    zone: user.zone,
-    dailyIncome: user.dailyIncome,
-    workingHours: user.workingHours,
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   });
 
   const [saving, setSaving] = useState(false);
 
-<<<<<<< HEAD
   useEffect(() => {
     if (!token) return;
     fetch('http://localhost:5000/api/auth/me', { headers: { Authorization: `Bearer ${token}` }})
@@ -51,8 +34,6 @@ export default function Profile() {
       .catch(console.error);
   }, [token, user]);
 
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -80,17 +61,10 @@ export default function Profile() {
         
         <div className="flex items-center gap-5 mb-8 border-b border-slate-100 pb-8">
           <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-primary-500 to-accent-500 flex items-center justify-center text-white text-3xl font-bold shadow-md ring-4 ring-primary-50">
-<<<<<<< HEAD
             {formData.name ? formData.name.charAt(0).toUpperCase() : <UserIcon className="w-10 h-10" />}
           </div>
           <div>
             <h2 className="text-xl font-bold text-slate-900">{formData.name || 'Delivery Partner'}</h2>
-=======
-            {formData.name.charAt(0).toUpperCase() || <UserIcon className="w-10 h-10" />}
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-slate-900">{formData.name || 'Partner Name'}</h2>
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
             <p className="text-slate-500 text-sm mt-0.5">{formData.email}</p>
           </div>
         </div>

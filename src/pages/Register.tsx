@@ -16,13 +16,9 @@ export default function Register() {
   });
   const [password, setPassword] = useState('');
   
-<<<<<<< HEAD
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const setAuth = useStore(state => state.setAuth);
-=======
-  const register = useStore(state => state.register);
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -33,7 +29,6 @@ export default function Register() {
     }));
   };
 
-<<<<<<< HEAD
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -69,18 +64,6 @@ export default function Register() {
     } finally {
       setLoading(false);
     }
-=======
-  const handleRegister = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate assigning an AI trust score
-    const aiTrustScore = Math.floor(Math.random() * 41) + 50; // Generate between 50 and 90
-    
-    register({
-      ...formData,
-      trustScore: aiTrustScore
-    });
-    navigate('/dashboard');
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   };
 
   return (
@@ -105,10 +88,7 @@ export default function Register() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-xl relative z-10">
         <div className="bg-white py-8 px-4 shadow-xl shadow-slate-200/50 sm:rounded-2xl sm:px-10 border border-slate-100">
-<<<<<<< HEAD
           {error && <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center font-medium border border-red-100">{error}</div>}
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
           <form className="space-y-5" onSubmit={handleRegister}>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -179,16 +159,10 @@ export default function Register() {
             <div className="pt-2">
               <button
                 type="submit"
-<<<<<<< HEAD
                 disabled={loading}
                 className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 transition-all active:scale-[0.98] disabled:opacity-70"
               >
                 {loading ? 'Processing...' : <>Register & Check Trust Score <ArrowRight className="w-4 h-4" /></>}
-=======
-                className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gradient-to-r from-primary-600 to-primary-500 hover:from-primary-700 hover:to-primary-600 transition-all active:scale-[0.98]"
-              >
-                Register & Check Trust Score <ArrowRight className="w-4 h-4" />
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
               </button>
             </div>
           </form>

@@ -31,10 +31,7 @@ export interface Claim {
 }
 
 interface AppState {
-<<<<<<< HEAD
   token: string | null;
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   user: User;
   activePlanId: string | null;
   monitor: {
@@ -50,10 +47,7 @@ interface AppState {
   
   login: (email: string, name?: string) => void;
   register: (data: Partial<User>) => void;
-<<<<<<< HEAD
   setAuth: (user: Partial<User>, token: string) => void;
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   logout: () => void;
   updateProfile: (data: Partial<User>) => void;
   subscribe: (planId: string) => void;
@@ -61,10 +55,7 @@ interface AppState {
 }
 
 export const useStore = create<AppState>((set) => ({
-<<<<<<< HEAD
   token: localStorage.getItem('token') || null,
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   user: {
     name: '',
     email: '',
@@ -73,18 +64,10 @@ export const useStore = create<AppState>((set) => ({
     zone: '',
     dailyIncome: 0,
     workingHours: 0,
-<<<<<<< HEAD
     trustScore: 0,
     isLoggedIn: !!localStorage.getItem('token'),
   },
   activePlanId: localStorage.getItem('activePlanId') || null,
-=======
-    upiId: '',
-    trustScore: 0,
-    isLoggedIn: false,
-  },
-  activePlanId: null,
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   monitor: {
     rainfall: 65, // mm
     temperature: 32, // C
@@ -128,7 +111,6 @@ export const useStore = create<AppState>((set) => ({
       isLoggedIn: true
     }
   })),
-<<<<<<< HEAD
   setAuth: (user, token) => {
     localStorage.setItem('token', token);
     set((state) => ({
@@ -146,11 +128,6 @@ export const useStore = create<AppState>((set) => ({
     if (planId) localStorage.setItem('activePlanId', planId);
     set({ activePlanId: planId })
   },
-=======
-  logout: () => set({ user: { name: '', email: '', phone: '', platform: '', zone: '', dailyIncome: 0, workingHours: 0, upiId: '', trustScore: 0, isLoggedIn: false } }),
-  updateProfile: (data) => set((state) => ({ user: { ...state.user, ...data } })),
-  subscribe: (planId) => set({ activePlanId: planId }),
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   addClaim: (claim) => set((state) => ({
     claims: [
       {

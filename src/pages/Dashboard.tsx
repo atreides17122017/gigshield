@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
 import { useStore } from '../store';
 import { 
   CloudRain, 
@@ -18,7 +15,6 @@ import {
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-<<<<<<< HEAD
   const { token } = useStore();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -42,9 +38,6 @@ export default function Dashboard() {
   if (loading) {
     return <div className="flex h-64 items-center justify-center font-medium text-slate-500 animate-pulse">Loading Live User Context...</div>;
   }
-=======
-  const { user, activePlanId, monitor } = useStore();
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
 
   const PlanAlert = () => {
     if (!activePlanId) {
@@ -161,10 +154,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-<<<<<<< HEAD
       <p className="text-xs text-slate-500 mt-2 text-center">IRDAI aligned parametric income protection | Income loss only</p>
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
 
       {/* AI Risk Analysis Panel */}
       <h2 className="text-lg font-bold text-slate-900 pt-4 tracking-tight">AI Risk Analysis Panel</h2>

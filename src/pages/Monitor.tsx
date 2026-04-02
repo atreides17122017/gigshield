@@ -1,6 +1,5 @@
 import { useStore } from '../store';
 import { CloudRain, ThermometerSun, AlertTriangle, Wind, Moon, Smartphone, RefreshCw } from 'lucide-react';
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 
 export default function Monitor() {
@@ -38,17 +37,6 @@ export default function Monitor() {
     setIsRefreshing(true);
     await fetchStatus();
     setIsRefreshing(false);
-=======
-import { useState } from 'react';
-
-export default function Monitor() {
-  const { monitor, activePlanId } = useStore();
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  const simulateRefresh = () => {
-    setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 800);
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   };
 
   const parameters = [
@@ -113,29 +101,20 @@ export default function Monitor() {
         </div>
         <button 
           onClick={simulateRefresh}
-<<<<<<< HEAD
           disabled={isLoading}
           className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors shadow-sm text-sm font-medium disabled:opacity-50"
         >
           <RefreshCw className={`w-4 h-4 ${isRefreshing || isLoading ? 'animate-spin' : ''}`} />
-=======
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors shadow-sm text-sm font-medium"
-        >
-          <RefreshCw className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`} />
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
           Refresh Data
         </button>
       </div>
 
-<<<<<<< HEAD
       {isLoading && (
         <div className="flex justify-center my-10">
           <div className="w-8 h-8 rounded-full border-4 border-slate-200 border-t-primary-500 animate-spin"></div>
         </div>
       )}
 
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
       {monitor.hasAlert && (
         <div className="bg-red-50 border-l-4 border-red-500 p-4 sm:p-5 rounded-r-2xl shadow-sm my-6">
           <div className="flex items-start gap-3">

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState, useEffect } from 'react';
 import { useStore } from '../store';
 import { Shield, Check, Zap, AlertCircle } from 'lucide-react';
@@ -11,56 +10,28 @@ const plansBase = [
     coverage: 300,
     weeklyCap: 1500,
     features: ['Rainfall tracking', 'Platform Outage protection', 'Basic fraud protection', 'IRDAI aligned coverage'],
-=======
-import { useStore } from '../store';
-import { Shield, Check, Zap } from 'lucide-react';
-
-const plans = [
-  {
-    id: 'basic',
-    name: 'Basic Shield',
-    price: 49,
-    coverage: 300,
-    weeklyCap: 1500,
-    features: ['Rainfall tracking', 'Platform Outage protection', '24/7 Support'],
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
     color: 'slate'
   },
   {
     id: 'standard',
     name: 'Standard Shield',
-<<<<<<< HEAD
     coverage: 400,
     weeklyCap: 2000,
     features: ['All Basic features', 'Extreme heat protection', 'AQI / Pollution coverage', 'Advanced Trust Score benefit'],
-=======
-    price: 69,
-    coverage: 400,
-    weeklyCap: 2000,
-    features: ['All Basic features', 'Extreme heat protection', 'Faster claim processing'],
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
     color: 'primary',
     popular: true
   },
   {
     id: 'premium',
     name: 'Premium Shield',
-<<<<<<< HEAD
     coverage: 500,
     weeklyCap: 2500,
     features: ['All Standard features', 'Curfew / Strike coverage', 'Instant automatic payouts', 'Highest weekly payout cap'],
-=======
-    price: 99,
-    coverage: 500,
-    weeklyCap: 2500,
-    features: ['All Standard features', 'Curfew/Strike coverage', 'Instant automatic payouts'],
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
     color: 'accent'
   }
 ];
 
 export default function Plans() {
-<<<<<<< HEAD
   const { activePlanId, user, token, subscribe } = useStore();
   const navigate = useNavigate();
   const [quotes, setQuotes] = useState<any>(null);
@@ -131,29 +102,6 @@ export default function Plans() {
     } catch (err) {
       console.error(err);
     }
-=======
-  const { activePlanId, subscribe, user } = useStore();
-
-  const getZoneRisk = (zone: string) => {
-    if (['Adyar', 'Velachery'].includes(zone)) return 10;
-    if (['T Nagar', 'Tambaram'].includes(zone)) return 5;
-    return 0; // Anna Nagar and default
-  };
-
-  const getTrustDiscount = (score: number) => {
-    if (score > 80) return 15;
-    if (score > 70) return 10;
-    if (score > 60) return 5;
-    return 0;
-  };
-
-  const zoneRisk = getZoneRisk(user.zone || 'Anna Nagar');
-  const trustDiscount = getTrustDiscount(user.trustScore || 72);
-  const seasonalRisk = 2; // Simulated random between 0 and 5
-
-  const getFinalPremium = (basePrice: number) => {
-    return basePrice + zoneRisk - trustDiscount + seasonalRisk;
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
   };
 
   return (
@@ -161,7 +109,6 @@ export default function Plans() {
       <div className="text-center max-w-2xl mx-auto space-y-4">
         <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Choose Your Protection</h1>
         <p className="text-slate-500 text-lg">Secure your daily income against unexpected disruptions like rain, extreme heat, and app outages.</p>
-<<<<<<< HEAD
         <button onClick={() => navigate('/compare')} className="text-primary-600 font-medium hover:underline">Compare all plans in detail</button>
       </div>
 
@@ -187,31 +134,6 @@ export default function Plans() {
           const isActive = activePlanId === plan.id;
           const isPopular = plan.popular;
           const price = quotes ? quotes[plan.id]?.personalised_premium : 0;
-=======
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100 text-sm font-medium">
-          <Zap className="w-4 h-4 fill-current text-indigo-500" />
-          <span>AI-adjusted premium based on your risk profile, Trust Score, zone risk, and season.</span>
-        </div>
-      </div>
-
-      <div className="max-w-2xl mx-auto mt-6 bg-slate-900 rounded-2xl p-5 text-white shadow-xl">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">Premium Breakdown</h3>
-        <div className="space-y-2 text-sm">
-           <div className="flex justify-between"><span className="text-slate-300">Base Premium</span><span>Plan dependent</span></div>
-           <div className="flex justify-between"><span className="text-slate-300">Zone Risk ({user.zone || 'Anna Nagar'})</span><span className="text-red-400">+₹{zoneRisk}</span></div>
-           <div className="flex justify-between"><span className="text-slate-300">Trust Score Discount ({user.trustScore || 72}/100)</span><span className="text-green-400">-₹{trustDiscount}</span></div>
-           <div className="flex justify-between"><span className="text-slate-300">Seasonal Risk (Monsoon)</span><span className="text-red-400">+₹{seasonalRisk}</span></div>
-        </div>
-        <div className="mt-4 pt-4 border-t border-slate-700">
-           <p className="text-xs text-slate-400">Premium is calculated using Trust Score, zone risk and seasonal risk. Updates dynamically.</p>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
-        {plans.map((plan) => {
-          const isActive = activePlanId === plan.id;
-          const isPopular = plan.popular;
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
 
           return (
             <div 
@@ -241,11 +163,7 @@ export default function Plans() {
                 }`} />
                 <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.name}</h3>
                 <div className="flex items-end justify-center gap-1">
-<<<<<<< HEAD
                   <span className="text-4xl font-extrabold text-slate-900">₹{loading ? "..." : price}</span>
-=======
-                  <span className="text-4xl font-extrabold text-slate-900">₹{getFinalPremium(plan.price)}</span>
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
                   <span className="text-slate-500 text-sm mb-1">/ week</span>
                 </div>
               </div>
@@ -273,13 +191,8 @@ export default function Plans() {
               </div>
 
               <button
-<<<<<<< HEAD
                 onClick={() => handleSubscribeClick(plan, price)}
                 disabled={isActive || loading}
-=======
-                onClick={() => subscribe(plan.id)}
-                disabled={isActive}
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
                 className={`w-full py-3.5 px-4 rounded-xl font-medium text-sm transition-all flex items-center justify-center gap-2 ${
                   isActive
                     ? 'bg-green-50 text-green-700 border border-green-200 cursor-not-allowed'
@@ -298,7 +211,6 @@ export default function Plans() {
           );
         })}
       </div>
-<<<<<<< HEAD
 
       {showModal && selectedPlan && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-fade-in">
@@ -336,8 +248,6 @@ export default function Plans() {
           </div>
         </div>
       )}
-=======
->>>>>>> bb158ccbe1fcbac67154d46ef2eab2a10b2a0f6d
     </div>
   );
 }
