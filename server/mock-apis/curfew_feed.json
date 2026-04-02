@@ -1,0 +1,14 @@
+[
+  {
+    "city": "Mumbai",
+    "active": false,
+    "reason": "Civic Strike",
+    "started_at": 1711900800000
+  },
+  {
+    "city": "Delhi",
+    "active": true,
+    "reason": "Section 144 Curfew",
+    "started_at": 1711814400000
+  }
+]

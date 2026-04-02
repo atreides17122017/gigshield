@@ -1,0 +1,16 @@
+[
+  {
+    "platform": "Zomato",
+    "city": "Mumbai",
+    "down": true,
+    "started_at": 1711950000000,
+    "estimated_duration_minutes": 150
+  },
+  {
+    "platform": "Swiggy",
+    "city": "Bengaluru",
+    "down": false,
+    "started_at": 1711800000000,
+    "estimated_duration_minutes": 0
+  }
+]

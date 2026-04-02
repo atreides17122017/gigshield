@@ -1,0 +1,12 @@
+[
+  {
+    "city": "Delhi", 
+    "active": true, 
+    "reason": "Municipal workers strike", 
+    "started_at": "2026-04-02T06:00:00Z"
+  },
+  {
+    "city": "Mumbai", 
+    "active": false
+  }
+]

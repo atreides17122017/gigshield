@@ -1,0 +1,14 @@
+[
+  {
+    "platform": "Zomato", 
+    "city": "Delhi", 
+    "down": true,
+    "started_at": "2026-04-02T14:00:00Z",
+    "estimated_duration_minutes": 180
+  },
+  {
+    "platform": "Swiggy", 
+    "city": "Mumbai", 
+    "down": false
+  }
+]
