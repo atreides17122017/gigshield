@@ -3,6 +3,8 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 import db from '../db.js';
+import { recalculateAllTrustScores } from '../services/trustService.js';
+
 
 const OPENWEATHER_KEY = process.env.OPENWEATHER_KEY || 'dummy_key';
 const AQI_KEY = process.env.AQI_KEY || 'dummy_key';
@@ -126,8 +128,13 @@ export async function createClaimsForZone(zone_id, trigger_type, trigger_value, 
         payout = Math.min(payout, caps[policy.plan_tier]);
         payout = Math.round(payout);
         
-        const status = fraudResult.fraud_score < 0.3 ? 'approved' : 'pending_verification';
-        
+        let status = 'pending_verification';
+        if (policy.trust_score >= 80) {
+            status = 'approved';
+        } else if (policy.trust_score <= 30) {
+            status = 'manual_review';
+        }
+
         const [claimResult] = await db.query(`INSERT INTO claims (policy_id, trigger_type, trigger_value, amount, status, consistency_score, fraud_risk_score, disruption_hours)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
            [policy.id, trigger_type, trigger_value, payout, status, fraudResult.consistency_score, fraudResult.fraud_score, disruption_hours]);
@@ -137,9 +144,13 @@ export async function createClaimsForZone(zone_id, trigger_type, trigger_value, 
         if (status === 'approved') {
             await processPayout(claim, policy, payout);
         } else {
+            const message = status === 'manual_review' 
+                ? `Claim of Rs.${payout} flagged for manual review due to low trust score.`
+                : `Claim of Rs.${payout} requires manual verification.`;
             await db.query('INSERT INTO notifications (user_id, claim_id, message, type) VALUES (?,?,?,?)',
-              [policy.user_id, claim.id, `Claim of Rs.${payout} requires manual verification.`, 'verification']);
+              [policy.user_id, claim.id, message, 'verification']);
         }
+
     }
 }
 
@@ -205,48 +216,7 @@ cron.schedule('*/15 * * * *', async () => {
 
 // Trust Score Logic Sunday 00:00 Recalculation Cron
 cron.schedule('0 0 * * 0', async () => {
-    console.log('Running Trust Score Recalculator...');
-    const [users] = await db.query('SELECT * FROM users');
-    
-    for (const user of users) {
-        const daysSinceJoined = Math.floor((Date.now() - new Date(user.created_at)) / 86400000);
-        
-        let tenureScore = 100;
-        if (daysSinceJoined < 30) tenureScore = 10;
-        else if (daysSinceJoined < 180) tenureScore = 50;
-        else if (daysSinceJoined < 365) tenureScore = 75;
-        
-        const [claimCountData] = await db.query(`
-          SELECT COUNT(*) as count FROM claims c
-          JOIN policies p ON c.policy_id = p.id
-          WHERE p.user_id = ? 
-            AND c.status IN ('approved','payout_success')`, [user.id]);
-        
-        const count = claimCountData.length ? claimCountData[0].count : 0;
-        
-        let claimScore = 30;
-        if (count === 0) claimScore = 100;
-        else if (count === 1) claimScore = 80;
-        else if (count === 2) claimScore = 60;
-        
-        const activityScore = Math.min(100, (user.daily_income / 1000) * 100);
-        const zoneScore = 80; // simplified
-        const verificationScore = 75; // simplified
-        
-        const newTrustScore = Math.round(
-          (tenureScore * 0.25) +
-          (claimScore * 0.30) +
-          (activityScore * 0.20) +
-          (zoneScore * 0.15) +
-          (verificationScore * 0.10)
-        );
-        
-        await db.query('UPDATE users SET trust_score = ?, tenure_days = ? WHERE id = ?', 
-          [newTrustScore, daysSinceJoined, user.id]);
-        
-        await db.query("INSERT INTO trust_history (user_id, score, recalc_date, factors_json) VALUES (?,date('now'),?,?)",
-          [user.id, newTrustScore, JSON.stringify({
-            tenure: tenureScore, claims: claimScore, activity: activityScore, zone: zoneScore, verification: verificationScore
-          })]);
-    }
+    console.log('Running Refined Trust Score Recalculator...');
+    await recalculateAllTrustScores();
 });
+
