@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store';
 import type { User } from '../store';
-import { ArrowRight, UserPlus } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Register() {
   const [formData, setFormData] = useState<Partial<User>>({
@@ -15,7 +15,7 @@ export default function Register() {
     upiId: ''
   });
   const [password, setPassword] = useState('');
-  
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const setAuth = useStore(state => state.setAuth);
@@ -33,7 +33,7 @@ export default function Register() {
     e.preventDefault();
     setError('');
     setLoading(true);
-    
+
     try {
       const payload = {
         name: formData.name,
@@ -45,14 +45,14 @@ export default function Register() {
         daily_income: formData.workingHours ? formData.workingHours * 80 : 500,
         password
       };
-      
+
       const res = await fetch('http://localhost:5000/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
       const json = await res.json().catch(() => ({}));
-      
+
       if (res.ok && json.success) {
         setAuth(json.user, json.token);
         navigate('/dashboard');
@@ -71,15 +71,13 @@ export default function Register() {
       {/* Background decorations */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-400/20 blur-[100px]" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent-400/20 blur-[100px]" />
-      
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary-600 to-accent-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
-            <UserPlus className="w-8 h-8 text-white" />
-          </div>
+          <img src="/favicon.png" alt="Insurix" className="w-16 h-16 rounded-2xl object-contain shadow-lg shadow-primary-500/30 bg-white" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 tracking-tight">
-          Join GigShield
+          Join Insurix
         </h2>
         <p className="mt-2 text-center text-sm text-slate-500 font-medium">
           Create an account to protect your daily earnings
@@ -90,7 +88,7 @@ export default function Register() {
         <div className="bg-white py-8 px-4 shadow-xl shadow-slate-200/50 sm:rounded-2xl sm:px-10 border border-slate-100">
           {error && <div className="mb-4 bg-red-50 text-red-600 p-3 rounded-lg text-sm text-center font-medium border border-red-100">{error}</div>}
           <form className="space-y-5" onSubmit={handleRegister}>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
@@ -138,7 +136,7 @@ export default function Register() {
                 <span>Weekly Work Hours</span>
                 <span className="text-primary-600 font-bold">{formData.workingHours} hrs/day</span>
               </label>
-              <input 
+              <input
                 type="range" name="workingHours" min="2" max="14" step="1"
                 value={formData.workingHours} onChange={handleChange}
                 className="w-full accent-primary-600"
@@ -166,7 +164,7 @@ export default function Register() {
               </button>
             </div>
           </form>
-          
+
           <div className="mt-6 text-center text-sm font-medium">
             <span className="text-slate-500">Already have an account? </span>
             <Link to="/login" className="text-primary-600 hover:text-primary-500 font-bold">Sign In</Link>

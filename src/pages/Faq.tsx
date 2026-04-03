@@ -4,7 +4,7 @@ import { ChevronDown, ChevronUp, HelpCircle } from 'lucide-react';
 const faqs = [
   {
     q: "How does the automatic payout work?",
-    a: "GigShield monitors weather and disruption APIs every 15 minutes. When a trigger threshold is crossed in your delivery zone, your claim is created automatically and payment is processed to your UPI ID. You do not need to file anything. Check your Claim History for details."
+    a: "Insurix monitors weather and disruption APIs every 15 minutes. When a trigger threshold is crossed in your delivery zone, your claim is created automatically and payment is processed to your UPI ID. You do not need to file anything. Check your Claim History for details."
   },
   {
     q: "What disruptions are covered?",
@@ -12,11 +12,11 @@ const faqs = [
   },
   {
     q: "What is not covered?",
-    a: "GigShield does not cover vehicle repairs, health or medical expenses, road accidents, voluntary absence, losses caused by war or military action, government-declared pandemics or epidemics, nuclear or biological events, or any fraudulent or misrepresented claims. Full details are on our Terms & Conditions page."
+    a: "Insurix does not cover vehicle repairs, health or medical expenses, road accidents, voluntary absence, losses caused by war or military action, government-declared pandemics or epidemics, nuclear or biological events, or any fraudulent or misrepresented claims. Full details are on our Terms & Conditions page."
   },
   {
     q: "When does my coverage start?",
-    a: "Your coverage starts immediately after payment is confirmed. There is no waiting period for GigShield's parametric income protection product."
+    a: "Your coverage starts immediately after payment is confirmed. There is no waiting period for Insurix's parametric income protection product."
   },
   {
     q: "How is my premium calculated?",
@@ -35,8 +35,8 @@ const faqs = [
     a: "Yes. Cancel from Settings at any time. The current week is non-refundable. No further charges after cancellation."
   },
   {
-    q: "Is GigShield regulated?",
-    a: "GigShield is a parametric income protection product designed in alignment with IRDAI microinsurance guidelines and the Digital Personal Data Protection Act 2023. Your data is used only for premium calculation and claim verification."
+    q: "Is Insurix regulated?",
+    a: "Insurix is a parametric income protection product designed in alignment with IRDAI microinsurance guidelines and the Digital Personal Data Protection Act 2023. Your data is used only for premium calculation and claim verification."
   }
 ];
 
@@ -49,15 +49,15 @@ export default function Faq() {
         <h1 className="text-3xl font-bold text-slate-900 tracking-tight flex justify-center items-center gap-2">
           Frequently Asked Questions
         </h1>
-        <p className="text-slate-500 text-lg">Everything you need to know about GigShield's parametric insurance.</p>
+        <p className="text-slate-500 text-lg">Everything you need to know about Insurix's parametric insurance.</p>
       </div>
 
       <div className="space-y-4">
         {faqs.map((faq, index) => {
           const isOpen = openIndex === index;
           return (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:border-slate-300 transition-colors shadow-sm"
             >
               <button
@@ -74,7 +74,7 @@ export default function Faq() {
                   <ChevronDown className="w-5 h-5 text-primary-500" />
                 )}
               </button>
-              
+
               {isOpen && (
                 <div className="px-5 pb-5 pt-0 text-slate-600 text-sm leading-relaxed border-t border-slate-100 mt-2 pt-4">
                   {faq.a}

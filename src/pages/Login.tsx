@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store';
-import { Shield, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ export default function Login() {
         body: JSON.stringify({ email, password })
       });
       const json = await res.json().catch(() => ({}));
-      
+
       if (res.ok && json.success) {
         setAuth(json.user, json.token);
         navigate('/dashboard');
@@ -37,15 +37,13 @@ export default function Login() {
       {/* Background decorations */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary-400/20 blur-[100px]" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-accent-400/20 blur-[100px]" />
-      
+
       <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
         <div className="flex justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary-600 to-accent-600 flex items-center justify-center shadow-lg shadow-primary-500/30">
-            <Shield className="w-8 h-8 text-white" />
-          </div>
+          <img src="/favicon.png" alt="Insurix" className="w-16 h-16 rounded-2xl object-contain shadow-lg shadow-primary-500/30 bg-white" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900 tracking-tight">
-          GigShield
+          Insurix
         </h2>
         <p className="mt-2 text-center text-sm text-slate-500 font-medium">
           AI-Powered Income Protection for Delivery Partners
@@ -103,17 +101,17 @@ export default function Login() {
               </button>
             </div>
           </form>
-          
+
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-200" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-slate-500">New to GigShield?</span>
+                <span className="px-2 bg-white text-slate-500">New to Insurix?</span>
               </div>
             </div>
-            
+
             <div className="mt-6 text-center">
               <Link
                 to="/register"

@@ -18,14 +18,14 @@ import notificationRoutes from './routes/notifications.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 app.use(express.json());
 
 // API Fallback entry route
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', message: 'GigShield Complete Backend Is Running!' });
+  res.json({ status: 'ok', message: 'Insurix Complete Backend Is Running!' });
 });
 
 // Master routes linking
@@ -39,5 +39,5 @@ app.use('/api/triggers', triggerRoutes);
 app.use('/api/notifications', notificationRoutes);
 
 app.listen(PORT, () => {
-  console.log(`GigShield Phase 2 Master Node Server running firmly on http://localhost:${PORT}`);
+  console.log(`Insurix Phase 2 Master Node Server running firmly on http://localhost:${PORT}`);
 });
