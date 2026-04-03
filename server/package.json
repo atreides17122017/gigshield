@@ -1,7 +1,7 @@
 {
-  "name": "gigshield-server",
+  "name": "Insurix-server",
   "version": "1.0.0",
-  "description": "GigShield Phase 2 Backend",
+  "description": "Insurix Phase 2 Backend",
   "main": "index.js",
   "type": "module",
   "scripts": {

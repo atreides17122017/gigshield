@@ -12,10 +12,9 @@ export default function Terms() {
       </div>
 
       <div className="space-y-10 text-slate-700 text-sm leading-relaxed">
-        
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">1. Coverage Scope</h2>
-          <p>GigShield provides weekly parametric income protection for platform-based delivery partners operating with Zomato or Swiggy in India. Coverage is for loss of working income only, triggered by verified external disruption events. All coverage requires an active weekly subscription plan.</p>
+          <p>Insurix provides weekly parametric income protection for platform-based delivery partners operating with Zomato or Swiggy in India. Coverage is for loss of working income only, triggered by verified external disruption events. All coverage requires an active weekly subscription plan.</p>
         </section>
 
         <section>
@@ -32,8 +31,8 @@ export default function Terms() {
         {/* Critical Exclusion Section Highlights */}
         <section className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
           <div className="flex items-center gap-2 mb-3">
-             <AlertTriangle className="w-6 h-6 text-amber-600" />
-             <h2 className="text-xl font-bold text-amber-900">3. Exclusions</h2>
+            <AlertTriangle className="w-6 h-6 text-amber-600" />
+            <h2 className="text-xl font-bold text-amber-900">3. Exclusions</h2>
           </div>
           <p className="mb-4 text-amber-800 font-medium">The following are explicitly excluded from all coverage:</p>
           <ul className="list-disc pl-5 space-y-2 text-amber-900">
@@ -46,7 +45,7 @@ export default function Terms() {
             <li>Personal health, medical, or accident expenses</li>
             <li>Losses not directly caused by a verified parametric trigger event as defined in Section 2</li>
             <li>Fraudulent claims, GPS location spoofing, false representation of location or activity</li>
-            <li>Losses occurring when no active GigShield policy exists at the time of the trigger event</li>
+            <li>Losses occurring when no active Insurix policy exists at the time of the trigger event</li>
             <li>Losses caused by the rider's own delivery platform account suspension or deactivation</li>
             <li>Pre-existing disruptions that began before policy activation</li>
           </ul>
@@ -54,17 +53,17 @@ export default function Terms() {
 
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">4. Premium & Payment Terms</h2>
-          <p>Premiums are charged weekly on the policy activation date. The premium is dynamically calculated by GigShield's AI model and may vary based on zone risk score, seasonal index, Trust Score, and claim history. GigShield reserves the right to update premium calculation parameters with 7 days notice.</p>
+          <p>Premiums are charged weekly on the policy activation date. The premium is dynamically calculated by Insurix's AI model and may vary based on zone risk score, seasonal index, Trust Score, and claim history. Insurix reserves the right to update premium calculation parameters with 7 days notice.</p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">5. Claim Process</h2>
-          <p>All claims are initiated automatically by GigShield's trigger monitoring system. Riders do not need to file claims manually. Automated fraud verification including GPS validation, platform activity check, and ML anomaly detection runs on every claim. Approved claims are processed within 30 minutes to the rider's registered UPI ID.</p>
+          <p>All claims are initiated automatically by Insurix's trigger monitoring system. Riders do not need to file claims manually. Automated fraud verification including GPS validation, platform activity check, and ML anomaly detection runs on every claim. Approved claims are processed within 30 minutes to the rider's registered UPI ID.</p>
         </section>
 
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">6. IRDAI Compliance Statement</h2>
-          <p>GigShield is designed as a parametric income protection product in alignment with IRDAI microinsurance product regulations and guidelines for gig economy coverage. This product does not constitute a traditional indemnity insurance policy. All terms are subject to applicable Indian insurance regulatory framework.</p>
+          <p>Insurix is designed as a parametric income protection product in alignment with IRDAI microinsurance product regulations and guidelines for gig economy coverage. This product does not constitute a traditional indemnity insurance policy. All terms are subject to applicable Indian insurance regulatory framework.</p>
         </section>
 
         <section>
@@ -74,7 +73,7 @@ export default function Terms() {
 
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">8. Fraud Policy</h2>
-          <p>Any attempt to manipulate GPS location data, file duplicate or fabricated claims, or misrepresent any disruption circumstances will result in immediate permanent account suspension and forfeiture of all pending payouts. GigShield employs a 6-layer signal validation system and DBSCAN clustering for coordinated fraud ring detection.</p>
+          <p>Any attempt to manipulate GPS location data, file duplicate or fabricated claims, or misrepresent any disruption circumstances will result in immediate permanent account suspension and forfeiture of all pending payouts. Insurix employs a 6-layer signal validation system and DBSCAN clustering for coordinated fraud ring detection.</p>
         </section>
 
         <section>
@@ -84,7 +83,7 @@ export default function Terms() {
 
         <section>
           <h2 className="text-xl font-bold text-primary-700 mb-3">10. Dispute Resolution</h2>
-          <p>Claim disputes must be raised within 7 days of the claim decision. GigShield will review and respond within 48 business hours.</p>
+          <p>Claim disputes must be raised within 7 days of the claim decision. Insurix will review and respond within 48 business hours.</p>
         </section>
 
         <section>

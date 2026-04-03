@@ -7,7 +7,7 @@ const coveredItems = [
     threshold: '50mm / 3 hrs',
     payout: '100% of daily income',
     plans: 'Basic, Standard, Premium',
-    desc: "When heavy rain stops you from riding, GigShield automatically detects it via weather API and pays your full day's income directly to your UPI.",
+    desc: "When heavy rain stops you from riding, Insurix automatically detects it via weather API and pays your full day's income directly to your UPI.",
     icon: CloudRain,
     bg: 'bg-blue-500',
     iconBg: 'bg-blue-600',
@@ -18,7 +18,7 @@ const coveredItems = [
     threshold: '43°C / 4+ hrs',
     payout: '50% of daily income',
     plans: 'Standard, Premium',
-    desc: "When dangerous heat makes outdoor delivery unsafe, GigShield covers half your day's lost income.",
+    desc: "When dangerous heat makes outdoor delivery unsafe, Insurix covers half your day's lost income.",
     icon: ThermometerSun,
     bg: 'bg-amber-500',
     iconBg: 'bg-amber-600',
@@ -29,7 +29,7 @@ const coveredItems = [
     threshold: 'AQI > 300',
     payout: '50% of daily income',
     plans: 'Standard, Premium',
-    desc: 'When hazardous air quality levels prevent safe outdoor work, GigShield covers half your daily lost income automatically.',
+    desc: 'When hazardous air quality levels prevent safe outdoor work, Insurix covers half your daily lost income automatically.',
     icon: Wind,
     bg: 'bg-slate-500',
     iconBg: 'bg-slate-600',
@@ -40,7 +40,7 @@ const coveredItems = [
     threshold: 'Verified order',
     payout: '100% of daily income',
     plans: 'Premium',
-    desc: "When a verified government curfew or civic strike prevents you from working, GigShield pays your full day's income.",
+    desc: "When a verified government curfew or civic strike prevents you from working, Insurix pays your full day's income.",
     icon: Shield,
     bg: 'bg-primary-500',
     iconBg: 'bg-primary-600',
@@ -51,7 +51,7 @@ const coveredItems = [
     threshold: 'Downtime > 2 hrs',
     payout: 'Pro-rated by hours',
     plans: 'Basic, Standard, Premium',
-    desc: 'When Zomato or Swiggy goes down for more than 2 hours, GigShield calculates and pays your lost income for those hours.',
+    desc: 'When Zomato or Swiggy goes down for more than 2 hours, Insurix calculates and pays your lost income for those hours.',
     icon: Smartphone,
     bg: 'bg-green-500',
     iconBg: 'bg-green-600',
@@ -62,7 +62,7 @@ const coveredItems = [
 const notCoveredItems = [
   {
     title: 'Vehicle Repairs',
-    desc: 'Mechanical breakdowns, punctures, or any vehicle maintenance costs are not covered by GigShield.'
+    desc: 'Mechanical breakdowns, punctures, or any vehicle maintenance costs are not covered by Insurix.'
   },
   {
     title: 'Health & Medical',
@@ -74,7 +74,7 @@ const notCoveredItems = [
   },
   {
     title: 'Voluntary Absence',
-    desc: 'Choosing not to work on a given day is not a covered parametric event under GigShield.'
+    desc: 'Choosing not to work on a given day is not a covered parametric event under Insurix.'
   },
   {
     title: 'War & Civil Conflict',
@@ -104,21 +104,19 @@ export default function Coverage() {
         <div className="flex gap-8">
           <button
             onClick={() => setTab('covered')}
-            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors border-b-2 ${
-              tab === 'covered' 
-                ? 'border-primary-600 text-primary-600' 
+            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors border-b-2 ${tab === 'covered'
+                ? 'border-primary-600 text-primary-600'
                 : 'border-transparent text-slate-400 hover:text-slate-600'
-            }`}
+              }`}
           >
             What's Covered
           </button>
           <button
             onClick={() => setTab('not-covered')}
-            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors border-b-2 ${
-              tab === 'not-covered' 
-                ? 'border-primary-600 text-primary-600' 
+            className={`pb-4 text-sm font-bold uppercase tracking-wider transition-colors border-b-2 ${tab === 'not-covered'
+                ? 'border-primary-600 text-primary-600'
                 : 'border-transparent text-slate-400 hover:text-slate-600'
-            }`}
+              }`}
           >
             What's Not Covered
           </button>
@@ -177,7 +175,7 @@ export default function Coverage() {
       )}
 
       <div className="text-center pt-8">
-        <p className="text-xs text-slate-500 font-medium">GigShield is a parametric income protection product designed in alignment with IRDAI microinsurance guidelines. Coverage is for income loss only.</p>
+        <p className="text-xs text-slate-500 font-medium">Insurix is a parametric income protection product designed in alignment with IRDAI microinsurance guidelines. Coverage is for income loss only.</p>
       </div>
     </div>
   );

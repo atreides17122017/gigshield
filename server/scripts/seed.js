@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 
 async function seed() {
   const db = await open({
-    filename: path.join(process.cwd(), 'gigshield.db'),
+    filename: path.join(process.cwd(), 'Insurix.db'),
     driver: sqlite3.Database
   });
 
@@ -150,7 +150,7 @@ async function seed() {
   await db.exec('DELETE FROM claims');
   await db.exec('DELETE FROM policies');
   await db.exec('DELETE FROM users');
-  await db.exec('DELETE FROM zones'); 
+  await db.exec('DELETE FROM zones');
 
   console.log('Inserting seed data into zones...');
 
@@ -170,7 +170,7 @@ async function seed() {
   await db.run(`
     INSERT INTO users (id, email, password_hash, name, platform, zone_id, daily_income, working_hours, trust_score, tenure_days)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `, [1, 'demo@gigshield.com', passwordHash, 'Ravi Kumar', 'Zomato', 1, 700, 10, 82, 1095]);
+  `, [1, 'demo@Insurix.com', passwordHash, 'Ravi Kumar', 'Zomato', 1, 700, 10, 82, 1095]);
 
   console.log('Inserting demo policy...');
   await db.run(`

@@ -7,7 +7,7 @@ let db = null;
 async function initDb() {
   if (db) return;
   db = await open({
-    filename: path.join(process.cwd(), 'gigshield.db'),
+    filename: path.join(process.cwd(), 'Insurix.db'),
     driver: sqlite3.Database
   });
 }

@@ -4,7 +4,7 @@ import { Calculator as CalcIcon, DollarSign, CloudRain, AlertCircle, Zap, Shield
 
 export default function Calculator() {
   const { user, activePlanId, monitor, activeTrigger } = useStore();
-  
+
   const [hourlyIncome, setHourlyIncome] = useState(user.dailyIncome ? Math.round(user.dailyIncome / user.workingHours) : 60);
   const [claimPhase, setClaimPhase] = useState<'idle' | 'detecting' | 'creating' | 'trust' | 'risk' | 'approved' | 'paid'>('idle');
 
@@ -31,7 +31,7 @@ export default function Calculator() {
 
   return (
     <div className="max-w-4xl mx-auto pb-20 lg:pb-0 animate-fade-in flex flex-col md:flex-row gap-6">
-      
+
       {/* Configuration Panel */}
       <div className="flex-1 space-y-6">
         <div>
@@ -40,14 +40,14 @@ export default function Calculator() {
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-6">
-          
+
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2 border-b border-slate-100 pb-2">Active Telemetry Detected</label>
             <div className="flex items-center gap-3 bg-red-50 text-red-700 p-4 rounded-xl border border-red-200">
-               <AlertCircle className="w-5 h-5 flex-shrink-0" />
-               <span className="font-bold">{autoType !== 'None' ? autoType + ' Disturbance Binding Active' : 'No Parameters Detected'}</span>
+              <AlertCircle className="w-5 h-5 flex-shrink-0" />
+              <span className="font-bold">{autoType !== 'None' ? autoType + ' Disturbance Binding Active' : 'No Parameters Detected'}</span>
             </div>
-            <p className="text-xs text-slate-500 mt-2 ml-1">GigShield APIs automatically sync to global feeds routing payouts autonomously without your input.</p>
+            <p className="text-xs text-slate-500 mt-2 ml-1">Insurix APIs automatically sync to global feeds routing payouts autonomously without your input.</p>
           </div>
 
           <div>
@@ -55,9 +55,9 @@ export default function Calculator() {
               <span>Hourly Income Calibration (₹)</span>
               <span className="text-primary-600 font-bold">₹{hourlyIncome}</span>
             </label>
-            <input 
-              type="range" 
-              className="w-full accent-primary-600 opacity-60" 
+            <input
+              type="range"
+              className="w-full accent-primary-600 opacity-60"
               min="20" max="200" step="5"
               value={hourlyIncome}
               onChange={(e) => setHourlyIncome(parseInt(e.target.value))}
@@ -72,9 +72,9 @@ export default function Calculator() {
               <span>Estimated Lost Hours</span>
               <span className="text-primary-600 font-bold">{lostHours} hrs</span>
             </label>
-            <input 
-              type="range" 
-              className="w-full accent-primary-600 opacity-40 pointer-events-none" 
+            <input
+              type="range"
+              className="w-full accent-primary-600 opacity-40 pointer-events-none"
               min="0" max="10" step="0.5"
               value={lostHours}
               readOnly
@@ -89,10 +89,10 @@ export default function Calculator() {
 
       {/* Result Panel */}
       <div className="w-full md:w-80 flex flex-col gap-4 sticky top-24 h-max">
-        
+
         <div className="bg-slate-900 rounded-3xl p-6 shadow-xl relative overflow-hidden group">
           <div className="absolute -right-10 -top-10 w-40 h-40 bg-primary-500/20 rounded-full blur-3xl"></div>
-          
+
           <h3 className="text-slate-400 text-sm font-medium mb-1">Yield Generation</h3>
           <div className="flex items-baseline gap-1 text-white">
             <span className="text-4xl font-extrabold tracking-tight">₹{calculatedPayout}</span>
@@ -132,23 +132,23 @@ export default function Calculator() {
 
         {/* Live Logic Steps Demo */}
         <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden">
-           <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-4">Zero-Touch Lifecycle</h4>
-           <div className="space-y-4">
-             {[
-               { icon: CloudRain, text: 'Disruption mapped', active: monitor.hasAlert || claimPhase !== 'idle' },
-               { icon: Zap, text: 'Node created', active: ['creating', 'trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
-               { icon: ShieldCheck, text: 'Trust evaluation', active: ['trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
-               { icon: CalcIcon, text: 'Fraud algorithm bounds', active: ['risk', 'approved', 'paid'].includes(claimPhase) },
-               { icon: DollarSign, text: 'UPI Yield Dropped', active: ['approved', 'paid'].includes(claimPhase) }
-             ].map((step, i) => (
-               <div key={i} className={`flex items-center gap-3 ${step.active ? 'opacity-100' : 'opacity-40 grayscale'} transition-all duration-300`}>
-                 <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500 ${step.active ? 'bg-primary-100 text-primary-600' : 'bg-slate-100 text-slate-500'}`}>
-                   <step.icon className="w-4 h-4" />
-                 </div>
-                 <span className={`text-sm ${step.active ? 'text-slate-800 font-medium' : 'text-slate-500'}`}>{step.text}</span>
-               </div>
-             ))}
-           </div>
+          <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-4">Zero-Touch Lifecycle</h4>
+          <div className="space-y-4">
+            {[
+              { icon: CloudRain, text: 'Disruption mapped', active: monitor.hasAlert || claimPhase !== 'idle' },
+              { icon: Zap, text: 'Node created', active: ['creating', 'trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
+              { icon: ShieldCheck, text: 'Trust evaluation', active: ['trust', 'risk', 'approved', 'paid'].includes(claimPhase) },
+              { icon: CalcIcon, text: 'Fraud algorithm bounds', active: ['risk', 'approved', 'paid'].includes(claimPhase) },
+              { icon: DollarSign, text: 'UPI Yield Dropped', active: ['approved', 'paid'].includes(claimPhase) }
+            ].map((step, i) => (
+              <div key={i} className={`flex items-center gap-3 ${step.active ? 'opacity-100' : 'opacity-40 grayscale'} transition-all duration-300`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-500 ${step.active ? 'bg-primary-100 text-primary-600' : 'bg-slate-100 text-slate-500'}`}>
+                  <step.icon className="w-4 h-4" />
+                </div>
+                <span className={`text-sm ${step.active ? 'text-slate-800 font-medium' : 'text-slate-500'}`}>{step.text}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
       </div>

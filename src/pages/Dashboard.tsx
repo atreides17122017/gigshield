@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { 
-  CloudRain, 
-  ThermometerSun, 
+import {
+  CloudRain,
+  ThermometerSun,
   Wind,
-  Moon, 
+  Moon,
   Smartphone,
   ShieldAlert,
   Wallet,
@@ -21,13 +21,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!token) return;
-    fetch('http://localhost:5000/api/dashboard', { headers: { Authorization: `Bearer ${token}` }})
+    fetch('http://localhost:5000/api/dashboard', { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json().catch(() => ({})))
       .then(d => { setData(d.data || d); setLoading(false); })
       .catch(err => {
-         console.error(err);
-         setData({});
-         setLoading(false);
+        console.error(err);
+        setData({});
+        setLoading(false);
       });
   }, [token]);
 
@@ -58,7 +58,7 @@ export default function Dashboard() {
         </div>
       );
     }
-    
+
     if (monitor.hasAlert) {
       return (
         <div className="mb-6 bg-gradient-to-r from-red-50 to-rose-50 border border-red-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm animate-pulse-slow">
@@ -90,7 +90,7 @@ export default function Dashboard() {
         </div>
         <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 text-green-700 rounded-full border border-green-200 text-sm font-medium capitalize">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          {user.platform || 'Gig'} Partner Active
+          {user.platform || 'Insurix'} Partner Active
         </div>
       </div>
 
@@ -107,7 +107,7 @@ export default function Dashboard() {
             <span className="text-indigo-300 font-medium mb-1">/ 100</span>
           </div>
           <div className="mt-3 text-xs text-indigo-100 leading-tight">
-             Higher trust score = lower premium and faster claims
+            Higher trust score = lower premium and faster claims
           </div>
         </div>
 
@@ -119,8 +119,8 @@ export default function Dashboard() {
           <p className="text-sm font-medium text-slate-500 mb-1">Avg Daily Income</p>
           <p className="text-2xl font-bold text-slate-900">₹{user.dailyIncome}</p>
           <div className="mt-4 flex items-center gap-2 text-xs text-slate-500">
-             <Clock className="w-3.5 h-3.5" />
-             <span>{user.workingHours} hrs/day</span>
+            <Clock className="w-3.5 h-3.5" />
+            <span>{user.workingHours} hrs/day</span>
           </div>
         </div>
 
@@ -174,11 +174,10 @@ export default function Dashboard() {
               </div>
               <h3 className="text-sm font-medium text-slate-600">{item.label}</h3>
               <p className="text-lg font-bold text-slate-900 mt-1">{item.value}</p>
-              <span className={`inline-block mt-2 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                item.risk === 'High' ? 'bg-red-100 text-red-700' : 
-                item.risk === 'Medium' ? 'bg-orange-100 text-orange-700' : 
-                'bg-green-100 text-green-700'
-              }`}>
+              <span className={`inline-block mt-2 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${item.risk === 'High' ? 'bg-red-100 text-red-700' :
+                  item.risk === 'Medium' ? 'bg-orange-100 text-orange-700' :
+                    'bg-green-100 text-green-700'
+                }`}>
                 {item.risk} RISK
               </span>
             </div>
