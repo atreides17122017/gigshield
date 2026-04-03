@@ -26,16 +26,15 @@ const navItems = [
   { path: '/monitor', label: 'Disruption Monitor', icon: Activity },
   { path: '/calculator', label: 'Payout Calculator', icon: Calculator },
   { path: '/history', label: 'Claim History', icon: History },
-  { path: '/notifications', label: 'Notifications', icon: Bell },
   { path: '/coverage', label: 'Coverage', icon: AlertCircle },
   { path: '/faq', label: 'FAQ', icon: HelpCircle },
-  { path: '/profile', label: 'Profile', icon: User },
-  { path: '/settings', label: 'Settings', icon: Settings },
 ];
 
 export default function Layout() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const { user, logout } = useStore();
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const { user, logout, notifications } = useStore();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -136,14 +135,47 @@ export default function Layout() {
 
           <div className="hidden lg:block"></div>
 
-          <div className="flex items-center gap-3">
-            <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors">
+          <div className="flex items-center gap-3 relative">
+            <button 
+               onClick={() => { setIsNotifOpen(!isNotifOpen); setIsProfileOpen(false); }}
+               className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors"
+            >
               <Bell className="w-5 h-5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+              {notifications?.length > 0 && <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>}
             </button>
-            <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-primary-500 to-accent-500 flex items-center justify-center text-white font-medium shadow-sm cursor-pointer ring-2 ring-white">
+            
+            {isNotifOpen && (
+              <div className="absolute top-full right-10 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50">
+                <div className="p-3 border-b border-slate-100 bg-slate-50 font-semibold text-sm text-slate-800">Notifications</div>
+                <div className="max-h-64 overflow-y-auto outline-none p-2 space-y-1">
+                   {notifications?.length > 0 ? notifications.map((n, i) => (
+                     <div key={i} className="p-2.5 rounded-lg hover:bg-slate-50 text-sm text-slate-600 transition-colors">
+                       {n.message}
+                     </div>
+                   )) : <div className="p-4 text-center text-sm text-slate-400">No new notifications</div>}
+                </div>
+              </div>
+            )}
+
+            <button 
+              onClick={() => { setIsProfileOpen(!isProfileOpen); setIsNotifOpen(false); }}
+              className="h-8 w-8 outline-none rounded-full bg-gradient-to-tr from-primary-500 to-accent-500 flex items-center justify-center text-white font-medium shadow-sm cursor-pointer ring-2 ring-white hover:ring-primary-100 transition-all"
+            >
               {user?.name?.charAt(0).toUpperCase() || 'U'}
-            </div>
+            </button>
+            
+            {isProfileOpen && (
+              <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden z-50 flex flex-col p-1">
+                <div className="px-3 py-2 border-b border-slate-100 mb-1">
+                  <p className="text-sm font-bold text-slate-800 truncate">{user?.name}</p>
+                  <p className="text-xs text-slate-500 truncate">{user?.email}</p>
+                </div>
+                <Link to="/profile" onClick={() => setIsProfileOpen(false)} className="px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2 transition-colors"><User className="w-4 h-4"/> Profile</Link>
+                <Link to="/settings" onClick={() => setIsProfileOpen(false)} className="px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2 transition-colors"><Settings className="w-4 h-4"/> Settings</Link>
+                <Link to="/history" onClick={() => setIsProfileOpen(false)} className="px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 rounded-lg flex items-center gap-2 transition-colors"><History className="w-4 h-4"/> Claims</Link>
+                <button onClick={handleLogout} className="px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg flex items-center gap-2 text-left transition-colors"><LogOut className="w-4 h-4"/> Sign Out</button>
+              </div>
+            )}
           </div>
         </header>
 

@@ -15,7 +15,7 @@ import {
 import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
-  const { token } = useStore();
+  const { token, activePlanId: localPlanId } = useStore();
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -31,9 +31,9 @@ export default function Dashboard() {
       });
   }, [token]);
 
-  const activePlanId = data?.policy?.plan_tier || null;
   const monitor = data?.risk || { hasAlert: false, rainfall: 0, temperature: 0, aqi: 0, curfew: false, platformOutage: false };
   const user = data?.user || { name: '', platform: '', zone: '', dailyIncome: 500, workingHours: 8, trustScore: 50 };
+  const activePlanId = localPlanId || data?.policy?.plan_tier || null;
 
   if (loading) {
     return <div className="flex h-64 items-center justify-center font-medium text-slate-500 animate-pulse">Loading Live User Context...</div>;

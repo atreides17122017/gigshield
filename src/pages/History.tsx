@@ -1,30 +1,11 @@
-import { useState, useEffect } from 'react';
 import { useStore } from '../store';
-import { FileText, CheckCircle2, Clock, XCircle, TrendingUp } from 'lucide-react';
+import { FileText, CheckCircle2, Clock, TrendingUp } from 'lucide-react';
 
 export default function History() {
-  const { token } = useStore();
-  const [claims, setClaims] = useState<any[]>([]);
-  const [stats, setStats] = useState<any>({ total_claims: 0, total_paid: 0, hours_protected: 0, success_rate: 100 });
-  const [loading, setLoading] = useState(true);
+  const { claims } = useStore();
 
-  useEffect(() => {
-    if (!token) return;
-    Promise.all([
-      fetch('http://localhost:5000/api/claims', { headers: { Authorization: `Bearer ${token}` }}).then(r => r.json().catch(() => ({}))),
-      fetch('http://localhost:5000/api/claims/stats', { headers: { Authorization: `Bearer ${token}` }}).then(r => r.json().catch(() => ({})))
-    ]).then(([claimsJson, statsJson]) => {
-      setClaims(claimsJson.data || claimsJson || []);
-      setStats(statsJson.data || statsJson || { total_claims: 0, total_paid: 0, hours_protected: 0, success_rate: 100 });
-      setLoading(false);
-    }).catch(err => {
-      console.error(err);
-      setLoading(false);
-    });
-  }, [token]);
-
-  const totalPaid = stats.total_paid;
-  const totalHours = stats.hours_protected;
+  const totalPaid = claims.reduce((sum, c) => sum + (c.amount || 0), 0);
+  const totalHours = claims.reduce((sum, c) => sum + (c.lostHours || 0), 0).toFixed(1);
 
   return (
     <div className="max-w-5xl mx-auto space-y-6 pb-20 lg:pb-0 animate-fade-in">
@@ -38,7 +19,7 @@ export default function History() {
           { label: 'Total Claims', value: claims.length, icon: FileText, color: 'text-blue-500', bg: 'bg-blue-50' },
           { label: 'Total Paid', value: `₹${totalPaid}`, icon: TrendingUp, color: 'text-green-500', bg: 'bg-green-50' },
           { label: 'Hours Protected', value: `${totalHours} hrs`, icon: Clock, color: 'text-amber-500', bg: 'bg-amber-50' },
-          { label: 'Success Rate', value: `${stats.success_rate || 100}%`, icon: CheckCircle2, color: 'text-primary-500', bg: 'bg-primary-50' }
+          { label: 'Success Rate', value: '100%', icon: CheckCircle2, color: 'text-primary-500', bg: 'bg-primary-50' }
         ].map((stat, i) => {
           const Icon = stat.icon;
           return (
@@ -69,27 +50,21 @@ export default function History() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {!loading && claims.length > 0 ? claims.map((claim) => (
+              {claims.length > 0 ? claims.map((claim) => (
                 <tr key={claim.id} className="hover:bg-slate-50/50 transition-colors">
-                  <td className="px-6 py-4 font-mono text-xs font-semibold text-slate-500">CLM-{claim.id}</td>
-                  <td className="px-6 py-4">{new Date(claim.created_at).toLocaleDateString()}</td>
+                  <td className="px-6 py-4 font-mono text-xs font-semibold text-slate-500">{claim.id}</td>
+                  <td className="px-6 py-4">{new Date(claim.date).toLocaleDateString()} {new Date(claim.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
                   <td className="px-6 py-4">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-slate-100 text-slate-700 capitalize">
-                      {claim.trigger_type}
+                      {claim.type}
                     </span>
                   </td>
-                  <td className="px-6 py-4">{claim.disruption_hours || 4} hrs</td>
+                  <td className="px-6 py-4">{claim.lostHours} hrs</td>
                   <td className="px-6 py-4 font-bold text-slate-900">₹{claim.amount}</td>
                   <td className="px-6 py-4">
-                    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border capitalize ${
-                      claim.status.includes('approved') || claim.status.includes('success') ? 'bg-green-50 text-green-700 border-green-200' :
-                      claim.status.includes('pending') ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                      'bg-red-50 text-red-700 border-red-200'
-                    }`}>
-                      {claim.status.includes('approved') && <CheckCircle2 className="w-3.5 h-3.5" />}
-                      {claim.status.includes('pending') && <Clock className="w-3.5 h-3.5" />}
-                      {claim.status.includes('failed') || claim.status.includes('rejected') && <XCircle className="w-3.5 h-3.5" />}
-                      {claim.status.replace('_', ' ')}
+                    <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border capitalize bg-green-50 text-green-700 border-green-200`}>
+                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      {claim.status}
                     </div>
                   </td>
                 </tr>

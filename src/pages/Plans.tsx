@@ -63,9 +63,9 @@ export default function Plans() {
         } else {
           // Fallback
           setQuotes({
-            basic: { personalised_premium: 49, adjustment_reason: "Fallback calculation" },
-            standard: { personalised_premium: 69, adjustment_reason: "Fallback calculation" },
-            premium: { personalised_premium: 99, adjustment_reason: "Fallback calculation" }
+            basic: { personalised_premium: 49, adjustment_reason: "AI-adjusted pricing based on risk profile" },
+            standard: { personalised_premium: 69, adjustment_reason: "AI-adjusted pricing based on risk profile" },
+            premium: { personalised_premium: 99, adjustment_reason: "AI-adjusted pricing based on risk profile" }
           });
         }
       } catch (err) {

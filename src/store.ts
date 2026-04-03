@@ -30,16 +30,24 @@ export interface Claim {
   status: 'Approved' | 'Pending' | 'Rejected';
 }
 
+export interface ActiveTrigger {
+  type: string;
+  value: number;
+  threshold: number;
+  severity: number;
+}
+
 interface AppState {
   token: string | null;
   user: User;
   activePlanId: string | null;
+  activeTrigger: ActiveTrigger | null;
   monitor: {
     rainfall: number;
     temperature: number;
     aqi: number;
-    curfew: boolean;
-    platformOutage: boolean;
+    curfew: number;
+    platformOutage: number;
     hasAlert: boolean;
   };
   claims: Claim[];
@@ -51,7 +59,9 @@ interface AppState {
   logout: () => void;
   updateProfile: (data: Partial<User>) => void;
   subscribe: (planId: string) => void;
-  addClaim: (claim: Omit<Claim, 'id' | 'date' | 'status'>) => void;
+  addClaim: (claim: Claim) => void;
+  setActiveTrigger: (trigger: ActiveTrigger | null) => void;
+  addNotification: (message: string) => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -68,22 +78,17 @@ export const useStore = create<AppState>((set) => ({
     isLoggedIn: !!localStorage.getItem('token'),
   },
   activePlanId: localStorage.getItem('activePlanId') || null,
+  activeTrigger: null,
   monitor: {
-    rainfall: 65, // mm
-    temperature: 32, // C
-    aqi: 320,
-    curfew: false,
-    platformOutage: true,
-    hasAlert: true, // Example alert
+    rainfall: 0,
+    temperature: 32,
+    aqi: 150,
+    curfew: 0,
+    platformOutage: 0,
+    hasAlert: false,
   },
-  claims: [
-    { id: 'CLM-001', date: '2026-03-15', type: 'Rain', lostHours: 4, amount: 1600, status: 'Approved' },
-    { id: 'CLM-002', date: '2026-02-28', type: 'Traffic', lostHours: 2, amount: 800, status: 'Approved' },
-  ],
-  notifications: [
-    { id: '1', message: 'Heavy Rain Detected — coverage active', type: 'alert' },
-    { id: '2', message: 'Claim CLM-001 Approved', type: 'success' },
-  ],
+  claims: JSON.parse(localStorage.getItem('claims') || '[]'),
+  notifications: [],
 
   login: (email, name) => set((state) => ({
     user: { 
@@ -128,15 +133,13 @@ export const useStore = create<AppState>((set) => ({
     if (planId) localStorage.setItem('activePlanId', planId);
     set({ activePlanId: planId })
   },
-  addClaim: (claim) => set((state) => ({
-    claims: [
-      {
-        ...claim,
-        id: `CLM-00${state.claims.length + 1}`,
-        date: new Date().toISOString().split('T')[0],
-        status: 'Pending',
-      },
-      ...state.claims
-    ]
+  addClaim: (claim) => set((state) => {
+    const newClaims = [claim, ...state.claims];
+    localStorage.setItem('claims', JSON.stringify(newClaims));
+    return { claims: newClaims };
+  }),
+  setActiveTrigger: (trigger) => set({ activeTrigger: trigger }),
+  addNotification: (message) => set((state) => ({
+    notifications: [{ id: Date.now().toString(), message, type: 'alert' }, ...state.notifications]
   }))
 }))
