@@ -28,7 +28,7 @@ export default function Notifications() {
     <div className="max-w-3xl mx-auto space-y-6 pb-20 lg:pb-0 animate-fade-in">
       <div>
         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Notifications</h1>
-        <p className="text-slate-500 mt-1">Alerts and updates regarding your GigShield coverage.</p>
+        <p className="text-slate-500 mt-1">Alerts and updates regarding your Insurix coverage.</p>
       </div>
 
       <div className="space-y-4">
