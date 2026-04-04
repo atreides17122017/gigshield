@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function Dashboard() {
   const { token, activePlanId: localPlanId } = useStore();
   const [data, setData] = useState<any>(null);
@@ -21,7 +23,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!token) return;
-    fetch('http://localhost:5000/api/dashboard', { headers: { Authorization: `Bearer ${token}` } })
+    fetch(`${BASE_URL}/api/dashboard`, { headers: { Authorization: `Bearer ${token}` } })
       .then(r => r.json().catch(() => ({})))
       .then(d => { setData(d.data || d); setLoading(false); })
       .catch(err => {

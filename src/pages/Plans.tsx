@@ -3,6 +3,8 @@ import { useStore } from '../store';
 import { Shield, Check, Zap, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 const plansBase = [
   {
     id: 'basic',
@@ -54,7 +56,7 @@ export default function Plans() {
           return;
         }
 
-        const res = await fetch('http://localhost:5000/api/policies/quote', {
+        const res = await fetch(`${BASE_URL}/api/policies/quote`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {
@@ -85,7 +87,7 @@ export default function Plans() {
     if (!token) return navigate('/login');
     
     try {
-      await fetch('http://localhost:5000/api/policies/subscribe', {
+      await fetch(`${BASE_URL}/api/policies/subscribe`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

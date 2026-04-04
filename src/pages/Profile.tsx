@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useStore } from '../store';
 import { Save, User as UserIcon, MapPin, Briefcase, IndianRupee, Clock } from 'lucide-react';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function Profile() {
   const { user, token, updateProfile } = useStore();
   
@@ -18,7 +20,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!token) return;
-    fetch('http://localhost:5000/api/auth/me', { headers: { Authorization: `Bearer ${token}` }})
+    fetch(`${BASE_URL}/api/auth/me`, { headers: { Authorization: `Bearer ${token}` }})
       .then(res => res.json().catch(() => ({})))
       .then(d => {
         const data = d.data || d;

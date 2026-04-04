@@ -4,6 +4,8 @@ import { useStore } from '../store';
 import type { User } from '../store';
 import { ArrowRight } from 'lucide-react';
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 export default function Register() {
   const [formData, setFormData] = useState<Partial<User>>({
     name: '',
@@ -46,7 +48,7 @@ export default function Register() {
         password
       };
 
-      const res = await fetch('http://localhost:5000/api/auth/register', {
+      const res = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
