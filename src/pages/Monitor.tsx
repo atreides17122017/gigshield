@@ -1,6 +1,6 @@
 import { useStore } from '../store';
 import { CloudRain, ThermometerSun, AlertTriangle, Wind, Moon, Smartphone, RefreshCw } from 'lucide-react';
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 // Replace with your actual API keys
 const OPENWEATHER_KEY = 'YOUR_API_KEY';
@@ -75,29 +75,29 @@ export default function Monitor() {
   const fetchRealtimeData = useCallback(async () => {
     try {
       const city = user?.zone || 'Chennai';
-      
+
       // 1. Fetch Real Weather Data (OpenWeatherMap)
       const weatherRes = fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHER_KEY}`);
-      
+
       // 2. Fetch Real AQI Data (WAQI)
       const aqiRes = fetch(`https://api.waqi.info/feed/${city}/?token=${WAQI_TOKEN}`);
-      
+
       // Execute concurrently
       const [weatherResponse, aqiResponse] = await Promise.all([weatherRes, aqiRes]);
-      
+
       let rainfall = 0;
       let temperature = 32;
       let aqi = 150;
 
       if (weatherResponse.ok) {
-         const weatherData = await weatherResponse.json();
-         rainfall = weatherData.rain?.['1h'] || 0;
-         temperature = weatherData.main?.temp ? Math.round(weatherData.main.temp - 273.15) : 32;
+        const weatherData = await weatherResponse.json();
+        rainfall = weatherData.rain?.['1h'] || 0;
+        temperature = weatherData.main?.temp ? Math.round(weatherData.main.temp - 273.15) : 32;
       }
 
       if (aqiResponse.ok) {
-         const aqiData = await aqiResponse.json();
-         aqi = aqiData.data?.aqi || 150;
+        const aqiData = await aqiResponse.json();
+        aqi = aqiData.data?.aqi || 150;
       }
 
       // 3. Compute Simulated Logic
@@ -114,17 +114,17 @@ export default function Monitor() {
         hasAlert: (rainfall > 50 || temperature > 42 || aqi > 300 || curfew === 1 || platformOutage > 5)
       });
       setLastUpdated(0);
-      
+
     } catch (e) {
       console.error("API failure, enforcing smart simulated fallback:", e);
-      
+
       // Smart Simulation Fallback (Alive & Realistic)
       setMonitor((prev: any) => {
         const slightShift = () => (Math.random() * 2 - 1); // Random between -1 and 1
         const newRain = Math.max(0, (prev.rainfall || 45) + slightShift() * 1.5);
         const newTemp = Math.max(20, (prev.temperature || 35) + slightShift() * 0.3);
         const newAqi = Math.max(50, (prev.aqi || 290) + slightShift() * 5);
-        
+
         return {
           rainfall: Number(newRain.toFixed(1)),
           temperature: Math.round(newTemp),
@@ -215,7 +215,7 @@ export default function Monitor() {
           <p className="text-slate-500 mt-1">Live tracking of parametric insurance triggers in your zone.</p>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <button 
+          <button
             onClick={simulateRefresh}
             disabled={isLoading}
             className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors shadow-sm text-sm font-medium disabled:opacity-50"
@@ -252,14 +252,13 @@ export default function Monitor() {
         {parameters.map((param) => {
           const Icon = param.icon;
           const isAlert = param.status === 'ALERT';
-          
+
           return (
             <div key={param.id} className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative overflow-hidden group transition-all duration-500">
               <div className="flex justify-between items-start mb-6">
                 <div className="flex items-center gap-3">
-                  <div className={`p-2.5 rounded-xl transition-colors duration-500 ${
-                    isAlert ? 'bg-red-100 text-red-600' : `bg-${param.color}-50 text-${param.color}-600`
-                  }`}>
+                  <div className={`p-2.5 rounded-xl transition-colors duration-500 ${isAlert ? 'bg-red-100 text-red-600' : `bg-${param.color}-50 text-${param.color}-600`
+                    }`}>
                     <Icon className="w-6 h-6" />
                   </div>
                   <div>
@@ -268,9 +267,8 @@ export default function Monitor() {
                     {param.subtitle && <p className="text-[10px] text-slate-400 mt-1 leading-tight max-w-[200px]">{param.subtitle}</p>}
                   </div>
                 </div>
-                <div className={`px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase transition-colors duration-500 ${
-                  isAlert ? 'bg-red-100 text-red-700 animate-pulse-slow shadow-sm' : 'bg-green-100 text-green-700'
-                }`}>
+                <div className={`px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider uppercase transition-colors duration-500 ${isAlert ? 'bg-red-100 text-red-700 animate-pulse-slow shadow-sm' : 'bg-green-100 text-green-700'
+                  }`}>
                   {param.status}
                 </div>
               </div>
@@ -282,16 +280,15 @@ export default function Monitor() {
                   </span>
                   <span className="text-sm font-medium text-slate-500 mb-1">{param.unit}</span>
                 </div>
-                
+
                 <div className="h-2 w-full bg-slate-100 rounded-full overflow-hidden mt-3">
-                  <div 
-                    className={`h-full rounded-full transition-all duration-1000 ${
-                      isAlert ? 'bg-red-500' : 'bg-green-500'
-                    }`}
+                  <div
+                    className={`h-full rounded-full transition-all duration-1000 ${isAlert ? 'bg-red-500' : 'bg-green-500'
+                      }`}
                     style={{ width: `${Math.min(100, (param.current / (param.threshold * 1.5)) * 100)}%` }}
                   />
                 </div>
-                
+
                 <div className="flex justify-between mt-2 text-xs text-slate-400 font-medium">
                   <span>Normal</span>
                   <span className="text-slate-500">Trigger Alert</span>
