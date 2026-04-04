@@ -1,10 +1,10 @@
 <div align="center">
 
-# GigShield
+# Insurix
 ### AI-Powered Income Protection for India's Gig Delivery Workers
 
 > Ravi has delivered for Swiggy for 3 years. Never a fake claim. When Chennai flooded last July, he lost Rs.2,400 in 4 days with zero compensation. No safety net. No insurance. Nothing.
-> GigShield exists for Ravi — and it is smart enough to know he is not the problem.
+> Insurix exists for Ravi — and it is smart enough to know he is not the problem.
 
 [![React](https://img.shields.io/badge/React_18-20232A?style=flat-square&logo=react&logoColor=61DAFB)](https://react.dev)
 [![Node.js](https://img.shields.io/badge/Node.js_20-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org)
@@ -26,19 +26,19 @@ When that happens, they lose income. No one compensates them. There is currently
 
 The impact is severe: **20–30% of monthly income wiped out** by events completely outside their control.
 
-GigShield solves this by automatically detecting disruptions, raising a claim on the rider's behalf, and paying out their lost income — with zero paperwork and zero manual effort from the rider.
+Insurix solves this by automatically detecting disruptions, raising a claim on the rider's behalf, and paying out their lost income — with zero paperwork and zero manual effort from the rider.
 
 ---
 
 ## How It Works
 
-GigShield is a **mobile-first parametric insurance platform** built for Zomato and Swiggy delivery partners in Tier 1 and Tier 2 Indian cities.
+Insurix is a **mobile-first parametric insurance platform** built for Zomato and Swiggy delivery partners in Tier 1 and Tier 2 Indian cities.
 
 **What is parametric insurance?**
 
 In traditional insurance, you file a claim manually and wait weeks for approval. Parametric insurance works differently — when a verified disruption (like a flood or extreme heat) crosses a defined threshold, the payout happens **automatically**. No forms. No waiting. No human approval needed. The trigger itself is the proof.
 
-**Important:** GigShield covers **income loss only**. Vehicle repairs, health issues, accidents, and life insurance are strictly outside the scope of this platform.
+**Important:** Insurix covers **income loss only**. Vehicle repairs, health issues, accidents, and life insurance are strictly outside the scope of this platform.
 
 ---
 
@@ -60,7 +60,7 @@ The platform is built specifically for one type of user — food delivery partne
 
 ## Platform Choice
 
-GigShield is built as a **mobile-first, PWA-style responsive web application** rather than a native app or desktop site.
+Insurix is built as a **mobile-first, PWA-style responsive web application** rather than a native app or desktop site.
 
 Our users are Zomato and Swiggy riders working entirely on low-end Android smartphones with limited storage and unstable networks. A native app creates unnecessary friction. A mobile-first web platform runs directly in the browser — no installation needed — while still delivering a full app-like experience.
 
@@ -73,7 +73,7 @@ Our users are Zomato and Swiggy riders working entirely on low-end Android smart
 
 ## Optimised Onboarding
 
-The use case requires onboarding optimised for delivery partners. GigShield achieves policy activation in under 90 seconds:
+The use case requires onboarding optimised for delivery partners. Insurix achieves policy activation in under 90 seconds:
 
 - Phone OTP login — no email or password required
 - Auto-detect delivery zone via GPS on signup
@@ -88,7 +88,7 @@ No unnecessary steps. No friction. Designed for a rider who is between deliverie
 
 ## Parametric Triggers
 
-GigShield monitors 5 types of disruptions every 15 minutes using real-time data APIs. When any disruption crosses its threshold, claims are automatically created for all insured riders in the affected zone. The rider does not need to do anything.
+Insurix monitors 5 types of disruptions every 15 minutes using real-time data APIs. When any disruption crosses its threshold, claims are automatically created for all insured riders in the affected zone. The rider does not need to do anything.
 
 | Trigger | Threshold | Payout |
 |---|---|---|
@@ -102,7 +102,7 @@ GigShield monitors 5 types of disruptions every 15 minutes using real-time data 
 
 ## Income Loss Calculation
 
-GigShield does not pay flat amounts. Every payout is calculated based on the rider's actual declared earnings.
+Insurix does not pay flat amounts. Every payout is calculated based on the rider's actual declared earnings.
 
 **How it works:**
 
@@ -130,9 +130,9 @@ For full-day disruptions (curfew, severe flood), the daily income figure is paid
 
 ## Weekly Premium Model
 
-Gig workers earn weekly, so GigShield charges weekly — no monthly lock-ins, no long-term commitments.
+Gig workers earn weekly, so Insurix charges weekly — no monthly lock-ins, no long-term commitments.
 
-GigShield uses a **Trust Score** to personalise how much each rider pays. The Trust Score (explained in the next section) reflects how long a rider has been active, their claim history, and their overall behaviour on the platform. Riders who have been consistently active with a clean record are rewarded with lower premiums and higher coverage.
+Insurix uses a **Trust Score** to personalise how much each rider pays. The Trust Score (explained in the next section) reflects how long a rider has been active, their claim history, and their overall behaviour on the platform. Riders who have been consistently active with a clean record are rewarded with lower premiums and higher coverage.
 
 | Plan | Weekly Premium | Max Daily Payout | Max Weekly Payout |
 |---|---|---|---|
@@ -169,7 +169,7 @@ The rider selects a plan, but the final weekly price they pay is adjusted by the
 
 ### 2. Fraud Detection
 
-GigShield uses a three-layer fraud detection system to make sure payouts only go to riders with genuine claims.
+Insurix uses a three-layer fraud detection system to make sure payouts only go to riders with genuine claims.
 
 **Layer 1 — Basic Rule Checks (runs instantly)**
 
@@ -224,7 +224,7 @@ The system forecasts next week's expected claim volume by geographic zone. This 
 
 ### 5. Platform Activity Validation
 
-GigShield validates whether a rider was genuinely unable to work — not just whether the weather was bad.
+Insurix validates whether a rider was genuinely unable to work — not just whether the weather was bad.
 
 | Method | Current Status |
 |---|---|
@@ -239,7 +239,7 @@ This ensures claims are tied to actual lost work — not just adverse weather in
 
 ## Business Viability
 
-GigShield is designed to be financially sustainable from day one.
+Insurix is designed to be financially sustainable from day one.
 
 **Premium pool:** Across 1,000 riders paying an average of Rs.70/week, the weekly premium pool is Rs.70,000. Historical disruption data for Indian metros suggests major trigger events affect 10–20% of riders per week on average — making payouts manageable within the pool.
 
@@ -255,13 +255,13 @@ GigShield is designed to be financially sustainable from day one.
 
 > **The Market Crash scenario:** 500 delivery workers in a Tier-1 city, coordinating via Telegram, used GPS-spoofing apps to fake their location inside a red-alert flood zone — triggering mass false payouts and draining the liquidity pool within hours.
 >
-> Here is exactly how GigShield detects and blocks this attack.
+> Here is exactly how Insurix detects and blocks this attack.
 
 ---
 
 ### Why GPS Alone Is Not Enough
 
-A GPS-spoofing app lets any phone report any location. If GigShield only checked GPS coordinates, the 500-rider attack would have succeeded. Our system does not rely on GPS alone.
+A GPS-spoofing app lets any phone report any location. If Insurix only checked GPS coordinates, the 500-rider attack would have succeeded. Our system does not rely on GPS alone.
 
 **The core principle:** A real rider caught in a flood produces consistent signals across 6 independent data sources at the same time. A fraudster using a spoofing app can only fake one of them. Faking all 6 simultaneously is practically impossible.
 
@@ -315,7 +315,7 @@ Individual fraud is one problem. A coordinated ring of 500 people is another. Wh
 | Account age | Mix of old and new accounts | Mostly brand new accounts |
 | Trust Scores | Normal distribution | Heavy cluster in the 0–39 range |
 
-GigShield runs a clustering algorithm (DBSCAN) on every batch of incoming claims after a trigger event. If a suspicious cluster of claims is detected — same location, same time, low trust scores — the entire cluster is frozen for review while genuine individual claims outside the cluster are approved normally.
+Insurix runs a clustering algorithm (DBSCAN) on every batch of incoming claims after a trigger event. If a suspicious cluster of claims is detected — same location, same time, low trust scores — the entire cluster is frozen for review while genuine individual claims outside the cluster are approved normally.
 
 ```python
 def detect_fraud_ring(claims, trigger_time):
@@ -337,7 +337,7 @@ def detect_fraud_ring(claims, trigger_time):
 
 ### Protecting Honest Riders Who Get Flagged
 
-A genuine rider in a dense urban area may have poor GPS accuracy due to nearby buildings, a weak network causing an IP mismatch, or a cheap phone with an unreliable motion sensor. GigShield does not punish riders for their hardware.
+A genuine rider in a dense urban area may have poor GPS accuracy due to nearby buildings, a weak network causing an IP mismatch, or a cheap phone with an unreliable motion sensor. Insurix does not punish riders for their hardware.
 
 When a claim is soft-flagged (Consistency Score 40–74), the rider goes through a **Rapid Verification Flow** — one single step, under 60 seconds:
 
@@ -433,13 +433,13 @@ Riders with a high Trust Score never reach this step — their history speaks fo
 
 ## Application Workflow
 
-### How a rider uses GigShield
+### How a rider uses Insurix
 
 **Step 1 — Sign up**
 The rider enters their phone number, receives an OTP, sets up their profile, selects their delivery zone, and adds their UPI ID.
 
 **Step 2 — Buy a policy**
-The rider picks a plan (Basic, Standard, or Premium). GigShield's AI calculates their personalised weekly premium based on their Trust Score, zone, and season. They make a mock payment and their policy goes live.
+The rider picks a plan (Basic, Standard, or Premium). Insurix's AI calculates their personalised weekly premium based on their Trust Score, zone, and season. They make a mock payment and their policy goes live.
 
 **Step 3 — Disruption happens (automatic)**
 The background job detects a disruption in the rider's zone. A claim is automatically created. It passes through the 6-layer check, Trust Score evaluation, and fraud detection. If approved, the payout is sent to the rider's UPI. The rider receives a push notification. They did not need to do anything.
@@ -528,8 +528,8 @@ Shows a live map of active trigger zones with fraud cluster heatmaps overlaid, a
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/gigshield.git
-cd gigshield
+git clone https://github.com/your-username/insurix.git
+cd insurix
 
 # Install backend dependencies
 cd server && npm install
@@ -545,7 +545,7 @@ cp .env.example server/.env
 # Open server/.env and fill in your values
 
 # Create and seed the database
-mysql -u root -p -e "CREATE DATABASE gigshield;"
+mysql -u root -p -e "CREATE DATABASE insurix;"
 cd server && node sync.js && node seeds/zones.js
 ```
 
@@ -568,7 +568,7 @@ Open in your browser: `http://localhost:5173`
 ```env
 PORT=5000
 DB_HOST=localhost
-DB_NAME=gigshield
+DB_NAME=insurix
 DB_USER=root
 DB_PASSWORD=yourpassword
 JWT_SECRET=your_jwt_secret
@@ -582,7 +582,7 @@ RAZORPAY_TEST_SECRET=your_secret
 
 <div align="center">
 
-**GigShield — Built for the rider who never cheated the system.**
+**Insurix — Built for the rider who never cheated the system.**
 
 *Guidewire DEVTrails 2026 — Seed. Scale. Soar.*
 
